@@ -118,27 +118,7 @@ const start = async () => {
     }
 
     // Create and read memories (work in progress)
-    let memoryStack = [];
-    let memoriesStack = [];
-    try {
-      memoryStack = JSON.parse(
-        fs.readFileSync(
-          path.join(__dirname, `../memories/${botName.toLowerCase()}.json`),
-          "utf8"
-        )
-      );
-    } catch (memoryErr) {
-      console.log("====== NO MEMORIES YET FOR ======", botName, memoryErr);
-    }
-    memoryStack = memoryStack.slice(
-      Math.max(memoryStack.length - config.gpt3.maxMemories, 0)
-    );
-    // TODO - Figure out a better style for  memory classification
-    memoriesStack.push(`${botName} likes to talk about: \n`);
-    memoryStack.forEach((m) => {
-      memoriesStack.push(`- ${m}\n`);
-    });
-    memoriesStack.push(`\n\n`);
+    
 
     const defaultPrompt = profile.prompt(
       NAME,

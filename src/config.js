@@ -1,7 +1,7 @@
 module.exports = {
   gpt3: {
-    apiKey: process.env.OPENAI_API_KEY,
-    temperature: 0.85,
+    apiKey: "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",
+    temperature: 0.92,
     thirdPartyName: "People",
     maxMessages: 6,
     maxMemories: 5,
