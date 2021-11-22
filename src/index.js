@@ -209,17 +209,17 @@ const start = async () => {
           try {
             var request = {
               input: {
-                text: responseText + `, ${botName} speaking, done`,
+                text: responseText + `, ${botName}, done`,
               },
               ...profile,
             };
             // Talk faster when long gpt3 response
-            if (responseText.length > 140) {
-              request.audioConfig.speakingRate = 1.1;
-            }
-            if (responseText.length > 340) {
-              request.audioConfig.speakingRate = 1.3;
-            }
+            // if (responseText.length > 140) {
+            //   request.audioConfig.speakingRate = 1.1;
+            // }
+            // if (responseText.length > 340) {
+            //   request.audioConfig.speakingRate = 1.3;
+            // }
             const [newresponse] = await newclient.synthesizeSpeech(request);
             const writeFile = await util.promisify(fs.writeFile);
             const uid = await uidgen.generate();
