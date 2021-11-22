@@ -2,13 +2,14 @@
   "name": "omegabot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "pm2 start ecosystem.config.js",
-    "stop": "pm2 kill"
+    "stop": "pm2 kill",
+    "dev": "node src/index.js"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@google-cloud/speech": "4.5.3",
     "@google-cloud/text-to-speech": "^3.2.3",
