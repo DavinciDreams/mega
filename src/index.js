@@ -40,7 +40,7 @@ const { profile } = require("./profiles/omega");
 // Initialize sound client
 const client = new wsrn({
   // On linux e.g. chromePath: "/usr/bin/google-chrome-stable",
-  chromePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
+  chromePath: "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
   continuous: true,
 });
 
@@ -103,13 +103,13 @@ const start = async () => {
     }
 
     // Figure out which bot personality should reply
-    const profile = findProfile(transcript);
+    //const profile = findProfile(transcript);
     const botName = profile.name;
 
     try {
       messageStack.push(`${NAME}: ${transcript}`.trim());
       fs.writeFileSync(
-        "../messages.json",
+        path.join(__dirname, "../messages.json"),
         JSON.stringify(messageStack, undefined, 4),
         "utf8"
       );
@@ -117,34 +117,34 @@ const start = async () => {
       console.log(e);
     }
 
-    // Create and read memories (work in progress)
-    let memoryStack = [];
-    let memoriesStack = [];
-    try {
-      memoryStack = JSON.parse(
-        fs.readFileSync(
-          path.join(__dirname, `../memories/${botName.toLowerCase()}.json`),
-          "utf8"
-        )
+    // // Create and read memories (work in progress)
+      let memoryStack = [];
+      let memoriesStack = [];
+      try {
+        memoryStack = JSON.parse(
+          fs.readFileSync(
+            path.join(__dirname, `../memories/${botName.toLowerCase()}.json`),
+            "utf8"
+          )
+        );
+      } catch (memoryErr) {
+        console.log("====== NO MEMORIES YET FOR ======", botName, memoryErr);
+      }
+      memoryStack = memoryStack.slice(
+        Math.max(memoryStack.length - config.gpt3.maxMemories, 0)
       );
-    } catch (memoryErr) {
-      console.log("====== NO MEMORIES YET FOR ======", botName, memoryErr);
-    }
-    memoryStack = memoryStack.slice(
-      Math.max(memoryStack.length - config.gpt3.maxMemories, 0)
-    );
-    // TODO - Figure out a better style for  memory classification
-    memoriesStack.push(`${botName} likes to talk about: \n`);
-    memoryStack.forEach((m) => {
-      memoriesStack.push(`- ${m}\n`);
-    });
-    memoriesStack.push(`\n\n`);
+     // TODO - Figure out a better style for  memory classification
+      memoriesStack.push(`${botName} likes to talk about: \n`);
+      memoryStack.forEach((m) => {
+        memoriesStack.push(`- ${m}\n`);
+      });
+      memoriesStack.push(`\n\n`);
 
-    const defaultPrompt = profile.prompt(
-      NAME,
-      botName,
-      memoriesStack.join("\n")
-    );
+     const defaultPrompt = profile.prompt(
+       NAME,
+       botName,
+        memoriesStack.join("\n")
+     );
 
     // This stack of messages gets appended to the selected bot personality
     const promptStack = [
@@ -191,10 +191,10 @@ const start = async () => {
         );
 
         // TODO - This is experimental
-        createMemory(
-          botName.toLowerCase(),
-          messageStack.slice(Math.max(messageStack.length - 5, 0))
-        );
+         createMemory(
+         botName.toLowerCase(),
+         messageStack.slice(Math.max(messageStack.length - 5, 0))
+       );
 
         state.thinking = false;
 
@@ -228,18 +228,18 @@ const start = async () => {
               newresponse.audioContent,
               "binary"
             );
-            await sleep(1000);
+            await sleep(50);
             const outputPath = path.join(__dirname, `../clips/${uid}.mp3`);
             console.log("outputPath", outputPath);
             // return true;
             player.play(outputPath, async function (err) {
-              await sleep(500);
+              await sleep(50);
               console.log("Sound played", err);
               delete state.client;
               // todo - this is terrible code. instantiate the client only once in the future
               const aclient = new wsrn({
-                chromePath:
-                  "C:/Program Files/Google/Chrome/Application/chrome.exe",
+                chromePath: 
+                  "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
                 continuous: true,
               });
               state.client = aclient;
@@ -258,7 +258,7 @@ const start = async () => {
                 // todo - remove recursive function
                 start();
               });
-              await sleep(1000);
+              await sleep(50);
             });
             state.speaking = false;
           } catch (speechError) {

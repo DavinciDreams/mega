@@ -8,6 +8,6 @@ module.exports = {
   },
   maxMessages: 6,
   google: {
-    projectId: "jsonresume-registry",
-  },
-};
+   project_id: "skilled-orbit-341914",
+   },
+  };

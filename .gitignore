@@ -5,3 +5,6 @@ messages.json
 credentials.json
 memories/*
 src/profiles/*
+google-chrome-stable_current_amd64.deb
+.vs
+.vscode
