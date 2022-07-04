@@ -32,7 +32,7 @@ setInterval(() => {
   } else {
     state.processing = false;
   }
-}, 45000);
+}, 5000);
 
 // Load profile
 const { profile } = require("./profiles/omega");
@@ -228,7 +228,7 @@ const start = async () => {
               newresponse.audioContent,
               "binary"
             );
-            await sleep(1000);
+            await sleep(500);
             const outputPath = path.join(__dirname, `../clips/${uid}.mp3`);
             console.log("outputPath", outputPath);
             // return true;
@@ -258,7 +258,7 @@ const start = async () => {
                 // todo - remove recursive function
                 start();
               });
-              await sleep(1000);
+              await sleep(500);
             });
             state.speaking = false;
           } catch (speechError) {

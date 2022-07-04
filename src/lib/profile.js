@@ -4,27 +4,30 @@ const path = require("path");
 const { gpt3 } = require("./gpt3");
 const { prompts: memories } = require("../prompts/memories");
 
-const { profile: bradProfile } = require("../profiles/brad");
+const { profile: lisaProfile } = require("../profiles/")
+
+const { profile: sherlockProfile } = require("../profiles/sherlock");
 const { profile: omegaProfile } = require("../profiles/omega");
 const { profile: lisaProfile } = require("../profiles/lisa");
 const { profile: confuciusProfile } = require("../profiles/confucius");
-const { profile: sueProfile } = require("../profiles/sue");
-const { profile: jackProfile } = require("../profiles/jack");
+const { profile: sunProfile } = require("../profiles/sun");
+const { profile: lewisProfile } = require("../profiles/lewis");
 const { profile: carlProfile } = require("../profiles/carl");
-
+const { profile: thalesProfile } = require("../profiles/thales");
 
 // TODO - make this less shit (loading of profiles)
 const profiles = [
-  bradProfile,
+  sherlockProfile,
   omegaProfile,
   lisaProfile,
-  jackProfile,
+  sunProfile,
   confuciusProfile,
-  sueProfile,
+  lewisProfile,
   carlProfile,
+  thalesProfile,
 
 ];
-let lastProfile = lisaProfile;
+let lastProfile = thalesProfile;
 
 // use config
 const MAX_MEMORIES = 5;
@@ -35,12 +38,13 @@ const findProfile = (text) => {
   //todo loop over profiles to make this array
   const bots = [
     "Omega",
-    "Brad",
-    "Jack",
-    "Lisa",
-    "Sue",
+    "Sherlock",
+    "Lewis",
+    "Thales",
+    "Sun",
     "Confucius",
     "Carl",
+    "Lisa"
   ];
   // const profileMatch = bots[Math.floor(Math.random() * bots.length)]; // default
   let selectedProfile = lastProfile;
